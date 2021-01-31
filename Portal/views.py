@@ -19,7 +19,8 @@ def signup(request):
                 auth.login(request, user)
                 username = request.POST['username']
                 welcome = 'Welcome to your portal, %s!' % (request.POST['first_name'])
-                context = {'username':username, 'messages':welcome }
+                demos = Demo.objects
+                context = {'username':username, 'messages':welcome, 'demos':demos }
                 return render(request, 'portal/portal.html', context)
         else:
             return render(request, 'portal/login.html', {'password_error':'Your passwords do not match.'})
@@ -40,7 +41,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             username = request.POST['username']
-            return render(request, 'portal/portal.html')
+            return redirect('portal')
         else:
             return render(request, 'portal/login.html', {'login_error':'The username or password is incorrect.'})
     else:
