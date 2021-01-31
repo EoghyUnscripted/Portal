@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='container mb-5'>
+
+    <div class ='container-fluid'>
+
+        <div class='row'>
+
+            <div class='col-12 col-md-4 col-lg-3 mb-5'>
+                <div class='container-fluid bg-secondary py-3 rounded'>
+                {% load static %}
+                <img class='img-fluid rounded w-25 m-3 d-block mx-auto' src='{% static "todo/images/bwsq.png" %}'/>
+                <h5 class='text-white text-center'>{{ user.first_name }} {{ user.last_name }}</h5><br />
+
+                <p>
+                    <small class='text-white'>To-Do: {{ tcount }}</small><br />
+                    <small class='text-white'>Completed: {{ ccount }}</small>
+                </p>
+
+                <a href='{% url "add" %}'>
+                    <button class='btn btn-light btn-block mb-3'><i class='fas fa-plus'></i> Add Item</button>
+                </a>
+                <a href='{% url "portal" %}'>
+                    <button class='btn btn-light btn-block'><i class="fas fa-home"></i> Dashboard</button>
+                </a>
+
+                </div>
+            </div>
+
+            <div class='col-12 col-md-8 col-lg-9 rounded'>
+
+                <h1 class='mt-3'>All To-Do Items:</h1>
+                <br />
+                <table class='table'>
+                    <thead>
+                        <tr class='bg-light'>
+                            <th scope='col'>Date</th>
+                            <th scope='col'>Time</th>
+                            <th scope='col'>Title</th>
+                            <th scope='col'>Completed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in todo.all %}
+                        <tr>
+                            <td>{{ t.Task_Date }}</td>
+                            <td>{{ t.Task_Time }}</td>
+                            <td>{{ t.Task_Title }}</td>
+                            <td>
+                                {% if t.Task_Completed %}
+                                    {{ t.Task_Complete_Date }}
+                                {% else %}
+                                    Active
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        
+    </div>
+
+</div>
+
+{% endblock %}

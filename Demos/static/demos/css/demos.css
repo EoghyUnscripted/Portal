@@ -1,0 +1,63 @@
+nav {
+  background-color: #5A0500;
+}
+
+body {
+  font-family: "Avenir", serif;
+  font-size: 10pt;
+}
+
+body body p {
+  line-height: 1.8;
+}
+
+body body ul {
+  line-height: 1.8;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Cambria", serif;
+}
+
+a {
+  color: #5A0500;
+  font-weight: 450;
+}
+
+a:hover, a > h5:hover {
+  text-decoration: none;
+  font-weight: 450;
+  color: #6c757d;
+  opacity: 50%;
+}
+
+footer .inner {
+  text-align: center;
+}
+
+footer .fa-fw {
+  padding: 20px;
+  font-size: 20px;
+  width: 50px;
+  text-align: left;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.header {
+  text-align: center;
+}
+
+.annotation {
+  color: #6c757d;
+  text-transform: uppercase;
+}
+
+.title {
+  color: #5A0500;
+}

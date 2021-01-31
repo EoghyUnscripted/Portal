@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='container mb-5'>
+
+    <div class ='container-fluid'>
+        {% if messages %}
+            <div class='container'>
+                <h5 class='text-success'>{{ messages }}</h5>
+            </div>
+        {% endif %}
+        
+        <div class='row'>
+
+            <div class='col-12 col-md-4 col-lg-3 mb-5'>
+                <div class='container-fluid bg-secondary py-3 rounded'>
+                {% load static %}
+                <img class='img-fluid rounded w-25 m-3 d-block mx-auto' src='{% static "demos/images/bwsq.png" %}'/>
+                <h5 class='text-white text-center'>{{ user.first_name }} {{ user.last_name }}</h5><br />
+
+                <p>
+                    <small class='text-white'>To-Do: {{ tcount }}</small><br />
+                    <small class='text-white'>Completed: {{ ccount }}</small>
+                </p>
+
+                <a href='{% url "todo-add" %}'>
+                    <button class='btn btn-light btn-block mb-3'><i class='fas fa-plus'></i> Add Item</button>
+                </a>
+                <a href='{% url "todo-view" %}'>
+                    <button class='btn btn-light btn-block'><i class="far fa-eye"></i> View Items</button>
+                </a>
+
+                </div>
+            </div>
+
+            <div class='col-12 col-md-8 col-lg-9 rounded'>
+                <!-- Add Messages and Recent Entries -->
+                <h1 class='mt-3'>To-Do:</h1>
+                <hr />
+                <div class='row'>
+                    {% for t in todo.all %}
+                    <div class='col-12 col-md-6 col-lg-4 mb-3'>
+                        <div class='card shadow'>
+                            <div class='card-body'>
+                                <a href="#todoModal{{ t.id }}" data-toggle="modal" data-target="#todoModal{{ t.id }}">
+                                    <h5 class='title'>{{ t.ToDo_Title }}</h5> 
+                                </a>
+                                <a href='{% url "todo-complete" t.id %}'>
+                                    <button class='btn btn-secondary' style='float:right'><i class='fas fa-check'></i></button>
+                                </a>
+                                {% if t.is_past_due %}
+                                    <span class='text-danger'>Due: {{ t.ToDo_Date }}</span><br />
+                                {% else %}
+                                    Due: {{ t.ToDo_Date }}<br />
+                                {% endif %}
+                                {% if t.ToDo_Time %}Time: {{ t.ToDo_Time }}{% endif %} <br />
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+        
+        {% for t in todo.all %}
+        <!-- Modal -->
+        <div class="modal fade" id="todoModal{{ t.id }}" tabindex="-1" aria-labelledby="todoModalLabel{{ t.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-light">
+                        <h5 class="modal-title" id="todoModalLabel{{ t.id }}">{{ t.ToDo_Title }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div style='float:right'>
+                            <a href='{% url "todo-edit" t.id %}'>
+                                <button type="button" class="btn btn-dark">Edit</button>
+                            </a>
+                            <a href='{% url "todo-delete" t.id %}'>
+                                <button type="button" class="btn btn-dark">Delete</button>
+                            </a>
+                        </div>
+                        {% if t.is_past_due %}
+                            <span class='text-danger'><h5>Due: {{ t.ToDo_Date }}</h5></span>
+                        {% else %}
+                            <strong>Due:</strong> {{ t.ToDo_Date }}<br />
+                        {% endif %}
+                        {% if t.ToDo_Time %}
+                            <strong>Time:</strong> {{ t.ToDo_Time }}<br />
+                        {% endif %}
+                        {% if t.ToDo_Location %}
+                            <strong>Location:</strong> {{ t.ToDo_Location }}<br />
+                        {% endif %}
+                        {% if t.ToDo_Description %}
+                            <strong>Description:</strong> {{ t.ToDo_Description }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class='row'>
+            <div class='col-12 my-3 justify-content-center'>
+                <button class='btn btn-light btn-sm container mb-3' type='button' data-toggle='collapse' data-target='#collapseCompleted'
+                    aria-expanded='false' aria-controls='collapseCompleted'>
+                    Completed Items<br/><i class='fas fa-chevron-down'></i><i class='fas fa-chevron-up'></i>
+                </button>
+                <div class='collapse' id='collapseCompleted'>
+                    <div>
+        
+                        <table class='table'>
+                            <thead>
+                                <tr class='bg-light'>
+                                    <th scope='col'>Date</th>
+                                    <th scope='col'>Time</th>
+                                    <th scope='col'>Title</th>
+                                    <th scope='col'>Completed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for c in completed.all %}
+                                <tr>
+                                    <td>{{ c.ToDo_Date }}</td>
+                                    <td>{{ c.ToDo_Time }}</td>
+                                    <td>{{ c.ToDo_Title }}</td>
+                                    <td>{{ c.ToDo_Complete_Date }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

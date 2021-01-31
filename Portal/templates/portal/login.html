@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='container my-3'>
+    {% if error %}
+    <div class='alert alert-danger' role='alert'>
+        <h5>{{ error }}</h5>
+    </div>
+    {% elif login_error %}
+    <script>
+        window.alert('{{ login_error }}');
+    </script>
+    {% elif username_error %}
+    <script>
+        window.alert('{{ username_error }}');
+    </script>
+    {% elif password_error %}
+    <script>
+        window.alert('{{ password_error }}');
+    </script>
+    {% endif %}
+    
+    <div class='container'>
+        
+        <div class='row'>
+
+            <div class='col-12 col-md-5 mb-3'>
+                <div class='container p-3 bg-secondary text-white rounded shadow-lg'>
+                    <h1>Log In</h1> 
+                    <form method='POST' action='{% url "login" %}' enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class='form-group'>
+                            <label class="control-label" for="username"><i class="fas fa-user"></i> Username</label>
+                            <input class="form-control" id="username" name="username" placeholder="Username" type="text" />
+                        </div>
+                        <div class='form-group'>
+                            <label class="control-label" for="password"><i class="fas fa-key"></i> Password</label>
+                            <input class="form-control" id="password" name="password" placeholder="Password" type="password" />
+                        </div>
+
+                        <div class='form-group'>
+                            <input class='btn btn-light' type='submit' value='Log In' />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class='col-12 col-md-7'>
+                <div class='container p-3 rounded shadow-lg'>
+                    <h1>Sign Up</h1> 
+                    <form method='POST' action='{% url "signup" %}' enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class='row mt-3'>
+                            <div class='col'>
+                                <label class="control-label" for="first_name">First Name</label>
+                                <input class="form-control" id="first_name" name="first_name" placeholder="First Name" type="text" />
+                            </div>
+                            <div class='col'>
+                                <label class="control-label" for="last_name">Last Name</label>
+                                <input class="form-control" id="last_name" name="last_name" placeholder="Last Name" type="text" />
+                            </div>
+                        </div>
+                        <div class='row mt-3'>
+                            <div class='col'>
+                                <label class="control-label" for="username"><i class="fas fa-user"></i> Username</label>
+                                <input class="form-control" id="username" name="username" placeholder="Desired Username" type="text" />
+                            </div>
+                        </div>
+                        <div class='row mt-3'>
+                            <div class='col'>
+                                <label class="control-label" for="password1"><i class="fas fa-key"></i> Password</label>
+                                <input class="form-control" id="password1" name="password1" placeholder="Password" type="password" />
+                            </div>
+                            <div class='col'>
+                                <label class="control-label" for="password2"><i class="fas fa-key"></i> Confirm Password</label>
+                                <input class="form-control" id="password2" name="password2" placeholder="Password" type="password" />
+                            </div>
+                        </div>
+                        <div class='row mt-3'>
+                            <div class='col'>
+                                <input class='btn btn-dark' type='submit' value='Sign Up' />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    
+    </div>
+ 
+ </div>
+
+{% endblock %}
