@@ -40,7 +40,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             username = request.POST['username']
-            return redirect('portal')
+            return render(request, 'portal/portal.html')
         else:
             return render(request, 'portal/login.html', {'login_error':'The username or password is incorrect.'})
     else:
