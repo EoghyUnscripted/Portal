@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='container mb-5'>
+
+    <div class ='container-fluid'>
+        {% if tip %}
+        <script>
+            window.alert('Check Amount: ${{ check|floatformat:2 }}\nTip Percent: {{ percent }}\nTip Amount: ${{ tip|floatformat:2 }} \nTotal : ${{ pay|floatformat:2 }}');
+        </script>
+        {% elif error %}
+        <script>
+            window.alert('{{ error }}');
+        </script>
+        {% endif %}
+        
+        <div class='row'>
+
+            <div class='col-12 col-md-4 col-lg-3 mb-5'>
+                <div class='container-fluid bg-secondary py-3 rounded'>
+                    {% load static %}
+                    <img class='img-fluid rounded w-25 m-3 d-block mx-auto' src='{% static "demos/images/bwsq.png" %}'/>
+                    <h5 class='text-white text-center'>{{ user.first_name }} {{ user.last_name }}</h5>
+                </div>
+            </div>
+
+            <div class='col-12 col-md-8 col-lg-9 rounded'>
+                <h1 class='mt-3'>Tip Calculator:</h1>
+                <hr />
+            
+                <form method='POST' action='{% url "tip-calculate" %}' enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class='form-group'>
+                        <label class="control-label" for="check_amt">Check Amount</label>
+                        <input class="form-control" id="check_amt" name="check_amt" placeholder="$50.00" type="text" />
+                    </div>
+                    <div class='form-group'>
+                        <label class="control-label" for="service_lvl">Service</label>
+                        <select class="form-control" id="service_lvl" name='service_lvl'>
+                            {% for s in service.all %}
+                            <option value='{{ s.id }}'>{{ s.Tip_Service_Level }}</option>
+                            {% endfor %}
+                            <option>Custom</option>
+                          </select>
+                    </div>
+                    <div class='form-group'>
+                        <label class="control-label" for="custom_percent">Custom Percent</label>
+                        <input class="form-control" id="custom_percent" name="custom_percent" placeholder="20" type="number" />
+                    </div>
+                    
+                    <div class='form-group'>
+                        <input class='btn btn-dark' type='submit' value='Calculate' />
+                        <a href='{% url "portal" %}'>
+                            <input class='btn btn-dark' type="button" name="cancel" value="Cancel" />
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div class='row'>
+            <div class='col-12 my-3 justify-content-center'>
+        
+                <table class='table'>
+                    <thead>
+                        <tr class='bg-light'>
+                            <th scope='col'>Service</th>
+                            <th scope='col'>Tip</th>
+                            <th scope='col'>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in service.all %}
+                        <tr>
+                            <td>{{ s.Tip_Service_Level }}</td>
+                            <td>{{ s.percent }}</td>
+                            <td>{{ s.Tip_Service_Description }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

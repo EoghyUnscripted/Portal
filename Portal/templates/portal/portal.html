@@ -37,22 +37,23 @@
                             aria-label='Placeholder: Thumbnail'>
                                 <img class='img-fluid' src='{{ d.Demo_Image.url }}'>
                             </div>
-                        <div class='card-body'>
-                            <h5 class='mb-0'>{{ d.Demo_Name }}</h5>
-                            <p class='card-text mt-2'>
-                                Dev: {{ d.Demo_Date_Developed }}<br />
-                                {{ d.summary|safe }}
-                            </p>
-                            <div class='d-flex justify-content-between align-items-center'>
-                                <div class='btn-group'>
-                                    <a href='/portal/{{ d.Demo_Link }}'>
-                                        <button type='button' class='btn btn-sm btn-outline-secondary'>View</button>
-                                    </a>
+                            <div class='card-body'>
+                                <h5 class='mb-0'>{{ d.Demo_Name }}</h5>
+                                <p class='card-text mt-2'>
+                                    Dev: {{ d.Demo_Date_Developed }}<br />
+                                    {{ d.summary|safe }}
+                                </p>
+                                <div class='d-flex justify-content-between align-items-center'>
+                                    <div class='btn-group'>
+                                        <a href='/portal/{{ d.Demo_Link }}'>
+                                            <button type='button' class='btn btn-sm btn-outline-secondary'>View</button>
+                                        </a>
+                                    </div>
+                                    <small class='text-muted'>v{{ d.Demo_Version }}</small>
+                                    {% if d.Demo_Update_Date %}
+                                    <small class='text-muted'>Updated: {{ d.Demo_Update_Date }}</small>
+                                    {% endif %}
                                 </div>
-                                <small class='text-muted'>v{{ d.Demo_Version }}</small>
-                                {% if d.Demo_Update_Date %}
-                                <small class='text-muted'>Updated: {{ d.Demo_Update_Date }}</small>
-                                {% endif %}
                             </div>
                         </div>
                     </div>

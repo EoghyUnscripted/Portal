@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path('portal/', views.portal, name='portal'),
     path('todo/', include('ToDo.urls')),
+    path('tips/', include('Tips.urls')),
 ]

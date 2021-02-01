@@ -30,6 +30,9 @@ INSTALLED_APPS = [
 
     # ToDo
     'ToDo.apps.TodoConfig',
+
+    # Tips
+    'Tips.apps.TipsConfig',
 ]
 
 MIDDLEWARE = [
