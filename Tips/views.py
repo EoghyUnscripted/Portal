@@ -20,7 +20,7 @@ def tips(request):
             error = 'You must select a service level or custom percentage for manual entry.'
             context = {'service':service, 'error':error}
             return render(request, 'tips/dashboard.html', context)
-        elif request.POST['service_lvl'] == 'Custom':
+        elif request.POST['service_lvl'] == 'Custom Percent':
             if (request.POST['check_amt'] and request.POST['custom_percent']):
                 check = float(request.POST['check_amt'])
                 tip = check * (float(request.POST['custom_percent']) / 100)
