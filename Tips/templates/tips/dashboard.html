@@ -7,7 +7,7 @@
     <div class ='container-fluid'>
         {% if tip %}
         <script>
-            window.alert('Check Amount: ${{ check|floatformat:2 }}\nTip Percent: {{ percent }}\nTip Amount: ${{ tip|floatformat:2 }} \nTotal : ${{ pay|floatformat:2 }}');
+            window.alert('Check Amount: ${{ check|floatformat:2 }}\nTip Percent: {{ percent }}\nTip Amount: ${{ tip|floatformat:2 }} \nTotal Payment: ${{ pay|floatformat:2 }}');
         </script>
         {% elif error %}
         <script>
@@ -32,21 +32,26 @@
                 <form method='POST' action='{% url "tip-calculate" %}' enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class='form-group'>
-                        <label class="control-label" for="check_amt">Check Amount</label>
+                        <label class="control-label" for="check_amt">Enter the check amount:</label>
                         <input class="form-control" id="check_amt" name="check_amt" placeholder="$50.00" type="text" />
                     </div>
                     <div class='form-group'>
-                        <label class="control-label" for="service_lvl">Service</label>
-                        <select class="form-control" id="service_lvl" name='service_lvl'>
-                            {% for s in service.all %}
-                            <option value='{{ s.id }}'>{{ s.Tip_Service_Level }}</option>
-                            {% endfor %}
-                            <option>Custom</option>
-                          </select>
-                    </div>
-                    <div class='form-group'>
-                        <label class="control-label" for="custom_percent">Custom Percent</label>
-                        <input class="form-control" id="custom_percent" name="custom_percent" placeholder="20" type="number" />
+                        <div class='row'>
+                            <div class='col'>
+                                <label class="control-label" for="service_lvl">Rate the service:</label>
+                                <select class="form-control" id="service_lvl" name='service_lvl'>
+                                    <option value='-1' selected='selected'>---</option> 
+                                    {% for s in service.all %}
+                                    <option value='{{ s.id }}'>{{ s.Tip_Service_Level }}</option>
+                                    {% endfor %}
+                                    <option>Custom Percent</option>
+                                </select>
+                            </div>
+                            <div class='col'>
+                                <label class="control-label" for="custom_percent">Custom Percent:</label>
+                                <input class="form-control" id="custom_percent" name="custom_percent" placeholder="20" type="number" />
+                            </div>
+                        </div>
                     </div>
                     
                     <div class='form-group'>
