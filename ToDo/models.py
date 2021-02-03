@@ -6,7 +6,7 @@ class ToDoList(models.Model):
     ToDo_Author = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     ToDo_Title = models.CharField(max_length=255)
     ToDo_Date = models.DateField(null=True, blank=True)
-    ToDo_Time = models.TimeField(null=True, blank=True)
+    ToDo_Time = models.TimeField(null=True, blank=True, default=00:00)
     ToDo_Location = models.CharField(max_length=255, null=True, blank=True)
     ToDo_Description = models.TextField(null=True, blank=True)
     ToDo_Completed = models.BooleanField()
