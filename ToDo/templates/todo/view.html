@@ -37,31 +37,76 @@
                     <thead>
                         <tr class='bg-light'>
                             <th scope='col'>Title</th>
-                            <th scope='col'>Location</th>
-                            <th scope='col'>Due</th>
+                            <th scope='col'>Date</th>
                             <th scope='col'>Description</th>
-                            <th scope='col'>Completed</th>
+                            <th scope='col'>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for t in todo.all %}
+                    {% for t in todo.all %}
+                        {% if forloop.counter|divisibleby:2 %}
+                        <tr class='even'>
+                        {% else %}
                         <tr>
-                            <td>{{ t.ToDo_Title }}</td>
-                            <td>{{ t.ToDo_Location }}</td>
-                            <td>{{ t.clean_date }}</td>
-                            <td>{{ t.ToDo_Description }}</td>
+                        {% endif %}
+                        <a href="#todoModal{{ t.id }}" data-toggle="modal" data-target="#todoModal{{ t.id }}">
+                            <td><a href="#todoModal{{ t.id }}" data-toggle="modal" data-target="#todoModal{{ t.id }}">
+                                {{ t.ToDo_Title }}</a></td>
+                            <td><a href="#todoModal{{ t.id }}" data-toggle="modal" data-target="#todoModal{{ t.id }}">
+                                {{ t.clean_date }}</a></td>
+                            <td><a href="#todoModal{{ t.id }}" data-toggle="modal" data-target="#todoModal{{ t.id }}">
+                                {{ t.ToDo_Description }}</a></td>
                             <td>
+                                <a href="#todoModal{{ t.id }}" data-toggle="modal" data-target="#todoModal{{ t.id }}">
                                 {% if t.ToDo_Completed %}
-                                    {{ t.ToDo_Complete_Date }}
+                                    Completed
                                 {% else %}
                                     Active
                                 {% endif %}
+                                </a>
                             </td>
+                        </a>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
+
+            {% for t in todo.all %}
+            <!-- Modal -->
+            <div class="modal fade" id="todoModal{{ t.id }}" tabindex="-1" aria-labelledby="todoModalLabel{{ t.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-light">
+                            <h5 class="modal-title" id="todoModalLabel{{ t.id }}">{{ t.ToDo_Title }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% if not t.ToDo_Completed %}
+                            <a href='{% url "todo-complete" t.id %}'>
+                                <button class='btn btn-secondary' style='float:right'><i class='fas fa-check'></i></button>
+                            </a>
+                            <strong>Status:</strong> Active<br />
+                            {% else %}
+                            <strong>Status:</strong> Completed<br />
+                            {% endif %}
+                            <strong>Due:</strong> {{ t.ToDo_Time }}<br />
+                            {% if t.ToDo_Location %}
+                                <strong>Location:</strong> {{ t.ToDo_Location }}<br />
+                            {% endif %}
+                            {% if t.ToDo_Description %}
+                                <strong>Description:</strong> {{ t.ToDo_Description }}<br />
+                            {% endif %}
+                            {% if t.ToDo_Complete_Date %}
+                                <strong>Completed:</strong> {{ t.ToDo_Complete_Date }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
 
         </div>
         

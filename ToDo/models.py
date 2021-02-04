@@ -33,3 +33,10 @@ class ToDoList(models.Model):
             return label
         else:
             return False
+
+    def completed_clean_date(self):
+        if self.ToDo_Complete_Date is not None:
+            label = self.ToDo_Complete_Date.date()
+            return label
+        else:
+            return False

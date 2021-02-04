@@ -17,4 +17,8 @@ class Demo(models.Model):
         return self.Demo_Name
 
     def summary(self):
-        return self.Demo_Description[:200]        
+        return self.Demo_Description[:200]
+
+    def update_date_clean(self):
+        clean_date = self.Demo_Update_Date.date()
+        return clean_date        

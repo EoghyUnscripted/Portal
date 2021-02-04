@@ -120,7 +120,11 @@
                             </thead>
                             <tbody>
                                 {% for c in completed.all %}
+                                {% if forloop.counter|divisibleby:2 %}
+                                <tr class='even'>
+                                {% else %}
                                 <tr>
+                                {% endif %}
                                     <td>{{ c.ToDo_Title }}</td>
                                     <td>{{ c.clean_date }}</td>
                                     <td>{{ c.ToDo_Description }}</td>
