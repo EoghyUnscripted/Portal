@@ -25,8 +25,10 @@ def signup(request):
         else:
             return render(request, 'portal/login.html', {'password_error':'Your passwords do not match.'})
     else:
-        # The user needs to create an account
-        return render(request, 'portal/login.html')
+        if request.user.is_authenticated:
+            return redirect('portal')
+        else:
+            return render(request, 'portal/login.html')
 
 @login_required(login_url='/login')
 def portal(request):
@@ -45,7 +47,10 @@ def login(request):
         else:
             return render(request, 'portal/login.html', {'login_error':'The username or password is incorrect.'})
     else:
-        return render(request, 'portal/login.html')
+        if request.user.is_authenticated:
+            return redirect('portal')
+        else:
+            return render(request, 'portal/login.html')
 
 def logout(request):
     if request.method == 'POST':

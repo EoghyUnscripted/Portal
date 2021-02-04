@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.utils import timezone
+from datetime import datetime, time, timedelta
 
 from .models import ToDoList
 
@@ -23,8 +24,7 @@ def add(request):
             ToDo = ToDoList()
             ToDo.ToDo_Author = request.user
             ToDo.ToDo_Title = request.POST['title']
-            ToDo.ToDo_Date = request.POST['date']
-            ToDo.ToDo_Time = request.POST['time']
+            ToDo.ToDo_Time = request.POST['date']
             ToDo.ToDo_Location = request.POST['location']
             ToDo.ToDo_Description = request.POST['description']
             ToDo.ToDo_Completed = 0
@@ -45,15 +45,18 @@ def edit(request, todo_id):
             ToDo = ToDoList.objects.get(pk=todo_id)
             ToDo.ToDo_Author = request.user
             ToDo.ToDo_Title = request.POST['title']
-            ToDo.ToDo_Date = request.POST['date']
-            ToDo.ToDo_Time = request.POST['time']
+            ToDo.ToDo_Time = request.POST['date']
             ToDo.ToDo_Location = request.POST['location']
             ToDo.ToDo_Description = request.POST['description']
             ToDo.ToDo_Completed = 0
             ToDo.save()
             return redirect('todo-dashboard')
         else:
-            return render(request, 'todo/edit.html', {'error':'Could not update.'})
+            tcount = ToDoList.objects.filter(ToDo_Author=request.user).filter(ToDo_Completed=0).count()
+            ccount = ToDoList.objects.filter(ToDo_Author=request.user).filter(ToDo_Completed=1).count()
+            todo = get_object_or_404(ToDoList, pk=todo_id)
+            context = {'todo':todo, 'tcount':tcount, 'ccount':ccount, 'error':'Could not update.'}
+            return render(request, 'todo/edit.html', context)
     else:
         tcount = ToDoList.objects.filter(ToDo_Author=request.user).filter(ToDo_Completed=0).count()
         ccount = ToDoList.objects.filter(ToDo_Author=request.user).filter(ToDo_Completed=1).count()
@@ -77,8 +80,9 @@ def delete(request, todo_id):
 
 @login_required(login_url='/login')
 def complete(request, todo_id):
+        delta = timedelta(hours=8)
         ToDo = get_object_or_404(ToDoList, pk=todo_id)
         ToDo.ToDo_Completed = 1
-        ToDo.ToDo_Complete_Date = timezone.now()
+        ToDo.ToDo_Complete_Date = timezone.now() - delta
         ToDo.save()
         return redirect('todo-dashboard')

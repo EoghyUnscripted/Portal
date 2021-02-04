@@ -36,18 +36,20 @@
                 <table class='table'>
                     <thead>
                         <tr class='bg-light'>
-                            <th scope='col'>Date</th>
-                            <th scope='col'>Time</th>
                             <th scope='col'>Title</th>
+                            <th scope='col'>Location</th>
+                            <th scope='col'>Due</th>
+                            <th scope='col'>Description</th>
                             <th scope='col'>Completed</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for t in todo.all %}
                         <tr>
-                            <td>{{ t.ToDo_Date }}</td>
-                            <td>{{ t.ToDo_Time }}</td>
                             <td>{{ t.ToDo_Title }}</td>
+                            <td>{{ t.ToDo_Location }}</td>
+                            <td>{{ t.clean_date }}</td>
+                            <td>{{ t.ToDo_Description }}</td>
                             <td>
                                 {% if t.ToDo_Completed %}
                                     {{ t.ToDo_Complete_Date }}

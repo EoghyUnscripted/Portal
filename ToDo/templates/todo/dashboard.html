@@ -50,11 +50,10 @@
                                     <button class='btn btn-secondary' style='float:right'><i class='fas fa-check'></i></button>
                                 </a>
                                 {% if t.is_past_due %}
-                                    <span class='text-danger'>Due: {{ t.ToDo_Date }}</span><br />
+                                    <span class='text-danger'>Due: {{ t.ToDo_Time }}</span><br />
                                 {% else %}
-                                    Due: {{ t.ToDo_Date }}<br />
+                                    Due: {{ t.ToDo_Time }}<br />
                                 {% endif %}
-                                {% if t.ToDo_Time %}Time: {{ t.ToDo_Time }}{% endif %} <br />
                             </div>
                         </div>
                     </div>
@@ -85,12 +84,9 @@
                             </a>
                         </div>
                         {% if t.is_past_due %}
-                            <span class='text-danger'><h5>Due: {{ t.ToDo_Date }}</h5></span>
+                            <span class='text-danger'><h5>Due: {{ t.ToDo_Time }}</h5></span>
                         {% else %}
-                            <strong>Due:</strong> {{ t.ToDo_Date }}<br />
-                        {% endif %}
-                        {% if t.ToDo_Time %}
-                            <strong>Time:</strong> {{ t.ToDo_Time }}<br />
+                            <strong>Due:</strong> {{ t.ToDo_Time }}<br />
                         {% endif %}
                         {% if t.ToDo_Location %}
                             <strong>Location:</strong> {{ t.ToDo_Location }}<br />
@@ -116,18 +112,18 @@
                         <table class='table'>
                             <thead>
                                 <tr class='bg-light'>
-                                    <th scope='col'>Date</th>
-                                    <th scope='col'>Time</th>
                                     <th scope='col'>Title</th>
+                                    <th scope='col'>Due</th>
+                                    <th scope='col'>Description</th>
                                     <th scope='col'>Completed</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for c in completed.all %}
                                 <tr>
-                                    <td>{{ c.ToDo_Date }}</td>
-                                    <td>{{ c.ToDo_Time }}</td>
                                     <td>{{ c.ToDo_Title }}</td>
+                                    <td>{{ c.clean_date }}</td>
+                                    <td>{{ c.ToDo_Description }}</td>
                                     <td>{{ c.ToDo_Complete_Date }}</td>
                                 </tr>
                                 {% endfor %}
