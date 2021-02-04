@@ -86,7 +86,7 @@
                         <div class="modal-body">
                             {% if not t.ToDo_Completed %}
                             <a href='{% url "todo-complete" t.id %}'>
-                                <button class='btn btn-secondary' style='float:right'><i class='fas fa-check'></i></button>
+                                <button class='btn btn-secondary m-1' style='float:right;'><i class='fas fa-check'></i></button>
                             </a>
                             <strong>Status:</strong> Active<br />
                             {% else %}

@@ -47,7 +47,7 @@
                                     <h5 class='title'>{{ t.ToDo_Title }}</h5> 
                                 </a>
                                 <a href='{% url "todo-complete" t.id %}'>
-                                    <button class='btn btn-secondary' style='float:right'><i class='fas fa-check'></i></button>
+                                    <button class='btn btn-secondary' style='float:right;'><i class='fas fa-check'></i></button>
                                 </a>
                                 {% if t.is_past_due %}
                                     <span class='text-danger'>Due: {{ t.ToDo_Time }}</span><br />
@@ -75,14 +75,6 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div style='float:right'>
-                            <a href='{% url "todo-edit" t.id %}'>
-                                <button type="button" class="btn btn-dark">Edit</button>
-                            </a>
-                            <a href='{% url "todo-delete" t.id %}'>
-                                <button type="button" class="btn btn-dark">Delete</button>
-                            </a>
-                        </div>
                         {% if t.is_past_due %}
                             <span class='text-danger'><h5>Due: {{ t.ToDo_Time }}</h5></span>
                         {% else %}
@@ -94,6 +86,15 @@
                         {% if t.ToDo_Description %}
                             <strong>Description:</strong> {{ t.ToDo_Description }}
                         {% endif %}
+                        <hr/>
+                        <div class='d-block p-1' style='float:right'>
+                            <a href='{% url "todo-edit" t.id %}'>
+                                <button type="button" class="btn btn-dark">Edit</button>
+                            </a>
+                            <a href='{% url "todo-delete" t.id %}'>
+                                <button type="button" class="btn btn-dark">Delete</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
