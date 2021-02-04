@@ -40,7 +40,7 @@
                             <div class='card-body'>
                                 <small class='text-muted' style='float: right;'>v{{ d.Demo_Version }}</small><h5 class='mb-0'>{{ d.Demo_Name }}</h5>
                                 <p class='card-text mt-2'>
-                                    {% if d.Demo_Update_Date %}
+                                    {% if d.Demo_Date_Developed %}
                                     Dev: {{ d.Demo_Date_Developed }}<br />
                                     {% endif %}
                                     {{ d.summary|safe }}
