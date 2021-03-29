@@ -1,5 +1,6 @@
 from django.db import models
 
+# Demo Apps Model
 class Demo(models.Model):
     Demo_Name = models.CharField(max_length=255)
     Demo_Image = models.ImageField(upload_to='images/')

@@ -33,6 +33,9 @@ INSTALLED_APPS = [
 
     # Tips
     'Tips.apps.TipsConfig',
+
+    #Production
+    'Production.apps.ProductionConfig',
 ]
 
 MIDDLEWARE = [

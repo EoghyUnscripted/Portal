@@ -3,28 +3,38 @@
 {% block content %}
 
 <div class='container my-3'>
+<!-- Custom Errors -->
     {% if error %}
+    <!-- Catch All -->
     <div class='alert alert-danger' role='alert'>
         <h5>{{ error }}</h5>
     </div>
     {% elif login_error %}
+    <!-- Error on Log In Form -->
     <script>
         window.alert('{{ login_error }}');
     </script>
     {% elif username_error %}
+    <!-- Username Error On Sign Up Form -->
     <script>
         window.alert('{{ username_error }}');
     </script>
     {% elif password_error %}
+    <!-- Password Error On Sign Up Form -->
     <script>
         window.alert('{{ password_error }}');
     </script>
     {% endif %}
+    <!-- General Prompt -->
+    <script>
+        window.alert('Please sign in or create a user profile to explore demos.\n-Eoghan Hulbert');
+    </script>
     
     <div class='container'>
         
         <div class='row'>
 
+            <!-- Log In Form -->
             <div class='col-12 col-md-5 mb-3'>
                 <div class='container p-3 bg-secondary text-white rounded shadow-lg'>
                     <h1>Log In</h1> 
@@ -46,6 +56,7 @@
                 </div>
             </div>
 
+            <!--  Sign Up Form -->
             <div class='col-12 col-md-7'>
                 <div class='container p-3 rounded shadow-lg'>
                     <h1>Sign Up</h1> 

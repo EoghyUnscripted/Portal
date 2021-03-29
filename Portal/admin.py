@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import Demo
 
-# Combine Models
+# Combine Imported Models
 mods = (Demo)
 
 # Register Models

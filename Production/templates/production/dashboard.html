@@ -6,38 +6,30 @@
 
     <div class ='container-fluid'>
         {% if messages %}
-        <!-- Display User Messages -->
             <div class='container'>
                 <h5 class='text-success'>{{ messages }}</h5>
             </div>
         {% endif %}
         
         <div class='row'>
-            <!-- User Profile Card -->
+
             <div class='col-12 col-md-4 col-lg-3 mb-5'>
                 <div class='container-fluid bg-secondary py-3 rounded'>
                 {% load static %}
                 <img class='img-fluid rounded w-25 m-3 d-block mx-auto' src='{% static "demos/images/bwsq.png" %}'/>
                 <h5 class='text-white text-center'>{{ user.first_name }} {{ user.last_name }}</h5><br />
 
-                <!-- Display Total Active And Completed ToDo Items -->
-                <p>
-                    <small class='text-white'>To-Do: {{ tcount }}</small><br />
-                    <small class='text-white'>Completed: {{ ccount }}</small>
-                </p>
-
-                <a href='{% url "todo-add" %}'>
-                    <button class='btn btn-light btn-block mb-3'><i class='fas fa-plus'></i> Add Item</button>
-                </a>
-                <a href='{% url "todo-view" %}'>
-                    <button class='btn btn-light btn-block'><i class="far fa-eye"></i> View Items</button>
-                </a>
+                <p class='text-white'><strong>
+                    Title: {{ user.profile.Employee_Title }}<br />
+                    Group(s): {% for g in user.groups.all %}{{ g }}&ensp;{% endfor %}<br />
+                    Manager: {{ user.profile.Manager_Name }}
+                </strong></p>
 
                 </div>
             </div>
 
-            <!-- ToDo Application -->
             <div class='col-12 col-md-8 col-lg-9 rounded'>
+                <!-- Add Messages and Recent Entries -->
                 <h1 class='mt-3'>To-Do:</h1>
                 <hr />
                 <div class='row'>
@@ -77,7 +69,6 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                    <!-- Checks For Existing Data For Each To Display, Or To Not Display -->
                         {% if t.is_past_due %}
                             <span class='text-danger'><h5>Due: {{ t.ToDo_Time }}</h5></span>
                         {% else %}
@@ -104,7 +95,6 @@
         </div>
         {% endfor %}
 
-        <!-- Completed ToDo Items List -->
         <div class='row'>
             <div class='col-12 my-3 justify-content-center'>
                 <button class='btn btn-light btn-sm container mb-3' type='button' data-toggle='collapse' data-target='#collapseCompleted'
@@ -125,7 +115,6 @@
                             </thead>
                             <tbody>
                                 {% for c in completed.all %}
-                                <!-- Sets Even Items As Class For Formatting -->
                                 {% if forloop.counter|divisibleby:2 %}
                                 <tr class='even'>
                                 {% else %}

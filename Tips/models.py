@@ -1,5 +1,6 @@
 from django.db import models
 
+# Tip Descriptions & Values
 class Percentage(models.Model):
     Service_Level = (
         ('Great', 'Great'),

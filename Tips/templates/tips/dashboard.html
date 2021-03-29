@@ -5,18 +5,21 @@
 <div class='container mb-5'>
 
     <div class ='container-fluid'>
+    <!-- User Alerts & Custom Error Messages -->
         {% if tip %}
+        <!-- Displays Resulting Tip Calculations -->
         <script>
             window.alert('Check Amount: ${{ check|floatformat:2 }}\nTip Percent: {{ percent }}\nTip Amount: ${{ tip|floatformat:2 }} \nTotal Payment: ${{ pay|floatformat:2 }}');
         </script>
         {% elif error %}
+        <!-- Displays Error Messages -->
         <script>
             window.alert('{{ error }}');
         </script>
         {% endif %}
         
         <div class='row'>
-
+            <!-- User Profile Card -->
             <div class='col-12 col-md-4 col-lg-3 mb-5'>
                 <div class='container-fluid bg-secondary py-3 rounded'>
                     {% load static %}
@@ -25,6 +28,7 @@
                 </div>
             </div>
 
+            <!-- Tip Application -->
             <div class='col-12 col-md-8 col-lg-9 rounded'>
                 <h1 class='mt-3'>Tip Calculator:</h1>
                 <hr />
@@ -66,6 +70,7 @@
         </div>
 
         <div class='row'>
+            <!-- Tip Descriptions Chart -->
             <div class='col-12 my-3 justify-content-center'>
         
                 <table class='table'>

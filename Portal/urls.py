@@ -10,4 +10,5 @@ urlpatterns = [
     path('portal/', views.portal, name='portal'),
     path('todo/', include('ToDo.urls')),
     path('tips/', include('Tips.urls')),
+    path('production/', include('Production.urls')),
 ]
