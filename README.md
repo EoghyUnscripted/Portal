@@ -1,4 +1,8 @@
+# The Hulbert Files
 # Portal
+# Author: Eoghan Hulbert
+# Version: 1.0
+
 This Django project was built to serve multiple web apps in one as a demo portal. Users would access by signing up 
 or logging in to access a personal portal. Each portal account allows users to utilize the apps without overlapping 
 data with other users and provides a level of security to prevent malicious intent.
